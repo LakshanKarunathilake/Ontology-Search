@@ -1,0 +1,5 @@
+(
+    function getRdf(){
+        alert("rdf");
+    }
+)()
