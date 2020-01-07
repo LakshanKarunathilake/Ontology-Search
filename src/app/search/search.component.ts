@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
   url: string = 'http://localhost:7200/repositories/countrydb?';
 
   toggledClass = 'Countries';
-  selectedCountry = null;
+  selectedCountry = [];
 
   countryList = [];
 
@@ -90,10 +90,26 @@ export class SearchComponent implements OnInit {
 
     this.http.get(this.url,{params})
         .subscribe(d => {
-          console.log("dd",d);
+          let country = d['results']['bindings'][0];
+          console.log("dd",country);
+          this.selectedCountry.push({
+            'area': country['area']['value'],
+            'capital' : country['area']['value'],
+            'name': country['name']['value'],
+            'currency' : country['currency']['value'],
+            'population': country['population']['value']
+          });
+          console.log("s",this.selectedCountry);
         });
-    this.selectedCountry = c;
+    //this.selectedCountry = c;
   }
+
+  // un select a country
+  unselectCountry() {
+    this.selectedCountry = [];
+  }
+
+
   getAllCountries() {
     let query = `
         PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>

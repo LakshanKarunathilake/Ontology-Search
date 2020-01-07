@@ -12,7 +12,8 @@ import {
   MatInputModule, MatSelectModule,
   MatSidenavModule, MatSlideToggleModule,
   MatToolbarModule,
-  MatTableModule
+  MatTableModule,
+  MatListModule
 } from '@angular/material';
 import { ResultsComponent } from './components/results/results.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatSelectModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

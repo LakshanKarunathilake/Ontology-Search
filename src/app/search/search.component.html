@@ -70,7 +70,7 @@
     </div>
   </div>
 
-  <div class="col-md-9" *ngIf="countryList && !selectedCountry">
+  <div class="col-md-9" *ngIf="countryList && selectedCountry.length == 0">
 
     <div id="countryList">
       <!-- <li *ngFor="let country of countryList">{{country}}</li> -->
@@ -112,25 +112,30 @@
 
   </div>
 
-  <div class="col-md-9" *ngIf="selectedCountry">
+  <div class="col-md-9" *ngIf="selectedCountry.length != 0">
     <div class="container">
       <mat-card class="example-card" style="width:500px">
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <div mat-card-avatar class="example-header-image">
+          </div>
+          <mat-card-title>{{selectedCountry[0].name}}</mat-card-title>
+          <mat-card-subtitle>Country</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        
         <mat-card-content>
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
-          </p>
+          <mat-list role="list">
+
+            <mat-list-item role="listitem">{{selectedCountry[0].capital}}</mat-list-item>
+            <mat-list-item role="listitem">{{selectedCountry[0].population}}</mat-list-item>
+            <mat-list-item role="listitem">{{selectedCountry[0].currency}}</mat-list-item>
+            <mat-list-item role="listitem">{{selectedCountry[0].area}} KM</mat-list-item>
+
+            
+          </mat-list>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+          <button mat-raised-button color="warn" (click) = "unselectCountry()">Back</button>
+          
         </mat-card-actions>
       </mat-card>
     </div>
