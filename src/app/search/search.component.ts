@@ -9,6 +9,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class SearchComponent implements OnInit {
   url: string = 'http://localhost:7200/repositories/countrydb?';
 
+  toggledClass = 'Countries';
+
   countryList = [];
 
   constructor(private http: HttpClient) {  
@@ -30,6 +32,10 @@ export class SearchComponent implements OnInit {
 
   
   ngOnInit() {
+  }
+
+  onToggleClicked(value, classT) {
+    this.toggledClass = classT;
   }
 
   getAll() {

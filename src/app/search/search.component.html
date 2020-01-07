@@ -14,10 +14,11 @@
   <div class="col-md-3">
     <div style="height: 100%;border-right: 1px solid #888888">
       <section style="padding: 15px">
-        <mat-slide-toggle class="selection">Countries</mat-slide-toggle>
-        <mat-slide-toggle class="selection">Continent</mat-slide-toggle>
-        <mat-slide-toggle class="selection">Currency</mat-slide-toggle>
-        <mat-slide-toggle class="selection">Capital</mat-slide-toggle>
+        <mat-slide-toggle (change)="onToggleClicked($event.checked, 'Countries')" [checked]="toggledClass == 'Countries'" class="selection">Countries</mat-slide-toggle>
+        <mat-slide-toggle (change)="onToggleClicked($event.checked, 'Continent')" [checked]="toggledClass == 'Continent'" class="selection">Continent</mat-slide-toggle>
+        <mat-slide-toggle (change)="onToggleClicked($event.checked, 'Currency')" [checked]="toggledClass == 'Currency'" class="selection">Currency</mat-slide-toggle>
+        <mat-slide-toggle (change)="onToggleClicked($event.checked, 'Capital')" [checked]="toggledClass == 'Capital'" class="selection">Capital</mat-slide-toggle>
+
         <div style="display: flex;justify-content: flex-end">
           <button mat-raised-button (click)="getAll()">Get All</button>
         </div>
