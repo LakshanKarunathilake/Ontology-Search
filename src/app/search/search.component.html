@@ -6,8 +6,25 @@
       <input type="text" matInput />
     </mat-form-field>
           <button mat-raised-button>Search</button>
-
     </span>
-
   </div>
 </mat-toolbar>
+
+<div style="width: 20%;height: 100%;">
+  <mat-card>
+    <mat-slide-toggle>Countries</mat-slide-toggle>
+  </mat-card>
+
+  <mat-card>
+      <mat-card-title>
+        Filter columns
+      </mat-card-title>
+    <mat-card-content style="display: flex;flex-direction: column;">
+      <mat-slide-toggle class="padded">Population</mat-slide-toggle>
+      <mat-slide-toggle class="padded">LandArea</mat-slide-toggle>
+      <mat-slide-toggle class="padded">Currency</mat-slide-toggle>
+      <mat-slide-toggle class="padded">Short Name</mat-slide-toggle>
+      <mat-slide-toggle class="padded">Code</mat-slide-toggle>
+    </mat-card-content>
+  </mat-card>
+</div>

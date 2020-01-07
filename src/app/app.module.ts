@@ -5,7 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './search/search.component';
-import {MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule, MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSidenavModule, MatSlideToggleModule,
+  MatToolbarModule
+} from '@angular/material';
 import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
@@ -22,7 +29,10 @@ import { ResultsComponent } from './components/results/results.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
