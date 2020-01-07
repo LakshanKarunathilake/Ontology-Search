@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   countryList = [];
 
   // country list table
-  displayedColumns: string[] = ['name','area','alpha'];
+  displayedColumns: string[] = ['name','area','alpha','buttons'];
   COUNTRY_DATA = [];
   dataSource;
 
@@ -56,6 +56,9 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  exploreCountry(c) {
+    alert(c);
+  }
   getAllCountries() {
     let query = `
         PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>
