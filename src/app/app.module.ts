@@ -9,7 +9,7 @@ import {
   MatAutocompleteModule,
   MatButtonModule, MatCardModule,
   MatFormFieldModule,
-  MatInputModule,
+  MatInputModule, MatSelectModule,
   MatSidenavModule, MatSlideToggleModule,
   MatToolbarModule
 } from '@angular/material';
@@ -32,7 +32,8 @@ import { ResultsComponent } from './components/results/results.component';
     MatButtonModule,
     MatSidenavModule,
     MatSlideToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
