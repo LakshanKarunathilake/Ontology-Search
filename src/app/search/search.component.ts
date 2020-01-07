@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
 
   countryList = [];
 
-  constructor(private http: HttpClient) {  
+  constructor(private http: HttpClient) {
     let params = new HttpParams().set('query',
       `PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>
       PREFIX gn: <http://www.geonames.org/ontology#>
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
               })
   }
 
-  
+
   ngOnInit() {
   }
 

@@ -68,9 +68,9 @@
 
   <div class="col-md-9">
 
-    <ul id="countryList" *ngIf="countryList">
-      <li *ngFor="let country of countryList">{{country}}</li>
-    </ul>
+    <div id="countryList" *ngIf="countryList">
+      <mat-card *ngFor="let country of countryList" style="margin: 5px">{{country}}</mat-card>
+    </div>
 
   </div>
 </div>
