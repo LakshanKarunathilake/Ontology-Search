@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+// mat table
+import {MatTableDataSource} from '@angular/material/table';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -12,6 +15,11 @@ export class SearchComponent implements OnInit {
   toggledClass = 'Countries';
 
   countryList = [];
+
+  // country list table
+  displayedColumns: string[] = ['name'];
+  COUNTRY_DATA = [];
+  dataSource = new MatTableDataSource<any>(this.COUNTRY_DATA);
 
   constructor(private http: HttpClient) {  
     let params = new HttpParams().set('query',
@@ -39,8 +47,15 @@ export class SearchComponent implements OnInit {
   }
 
   getAll() {
-    this.getAllCountries();
+    switch(this.toggledClass) {
+      case 'Countries':
+        this.getAllCountries();
+        break;
+      case 'Capital':
+        break;
+    }
   }
+
   getAllCountries() {
     let query = `
         PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>
@@ -69,9 +84,10 @@ export class SearchComponent implements OnInit {
           let countries = data['results']['bindings'];
           console.log(countries[0]);
           for( let i = 0; i< countries.length; i++ ){
-            this.countryList.push(countries[i]['name']['value'])
+            this.countryList.push('name',countries[i]['name']['value'])
           }
           console.log('cou',this.countryList);
+          this.COUNTRY_DATA = this.countryList;
         })
   }
 }

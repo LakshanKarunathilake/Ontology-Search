@@ -11,7 +11,8 @@ import {
   MatFormFieldModule,
   MatInputModule, MatSelectModule,
   MatSidenavModule, MatSlideToggleModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTableModule
 } from '@angular/material';
 import { ResultsComponent } from './components/results/results.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,7 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSlideToggleModule,
     MatCardModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
