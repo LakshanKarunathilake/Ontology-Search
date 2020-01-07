@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   url: string = 'http://localhost:7200/repositories/countrydb?';
 
   toggledClass = 'Countries';
+  selectedCountry = null;
 
   countryList = [];
 
@@ -57,7 +58,41 @@ export class SearchComponent implements OnInit {
   }
 
   exploreCountry(c) {
-    alert(c);
+    let query = `
+        PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>
+        PREFIX gn: <http://www.geonames.org/ontology#>
+        PREFIX measurement: <http://telegraphis.net/ontology/measurement/measurement#>
+        PREFIX metric: <http://www.telegraphis.net/ontology/measurement/metric#> 
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+        PREFIX quantity: <http://www.telegraphis.net/ontology/measurement/quantity#>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX code: <http://www.telegraphis.net/ontology/measurement/code#>
+        
+        PREFIX money: <http://telegraphis.net/ontology/money/money#>
+        select ?name ?population ?area ?currency ?capital
+        where { 
+            ?country gn:name "Sri Lanka"@en;
+                gn:population ?population;
+              geographis:landArea ?land;
+                geographis:capital ?ca;
+                    geographis:currency ?cu;
+                gn:name ?name .		 
+            ?land rdf:value ?area .
+            ?ca gn:name ?capital .
+            ?cu money:name ?currency .
+            ?land rdf:value ?area.
+            
+        } 
+    
+    `;
+
+    let params = new HttpParams().set('query',query);
+
+    this.http.get(this.url,{params})
+        .subscribe(d => {
+          console.log("dd",d);
+        });
+    this.selectedCountry = c;
   }
   getAllCountries() {
     let query = `

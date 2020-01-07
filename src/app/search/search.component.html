@@ -28,13 +28,16 @@
           <mat-card-title>
             Filter columns
           </mat-card-title>
-        <mat-card-content style="display: flex;flex-direction: column;">
-          <mat-slide-toggle class="padded">Population</mat-slide-toggle>
-          <mat-slide-toggle class="padded">LandArea</mat-slide-toggle>
-          <mat-slide-toggle class="padded">Currency</mat-slide-toggle>
-          <mat-slide-toggle class="padded">Short Name</mat-slide-toggle>
-          <mat-slide-toggle class="padded">Code</mat-slide-toggle>
-        </mat-card-content>
+          
+          <div id="countryFilters" *ngIf="toggledClass == 'Countries'">
+            <mat-card-content style="display: flex;flex-direction: column;">
+            <mat-slide-toggle class="padded">Population</mat-slide-toggle>
+            <mat-slide-toggle class="padded">LandArea</mat-slide-toggle>
+            <mat-slide-toggle class="padded">Currency</mat-slide-toggle>
+            <mat-slide-toggle class="padded">Short Name</mat-slide-toggle>
+            <mat-slide-toggle class="padded">Code</mat-slide-toggle>
+            </mat-card-content>
+          </div>
       </mat-card>
       <mat-card>
         <mat-card-title>Preview of Data</mat-card-title>
@@ -67,9 +70,9 @@
     </div>
   </div>
 
-  <div class="col-md-9">
+  <div class="col-md-9" *ngIf="countryList && !selectedCountry">
 
-    <ul id="countryList" *ngIf="countryList">
+    <div id="countryList">
       <!-- <li *ngFor="let country of countryList">{{country}}</li> -->
 
       <div class="mat-elevation-z8">
@@ -105,8 +108,34 @@
       
         
       </div>
-    </ul>
+    </div>
 
   </div>
+
+  <div class="col-md-9" *ngIf="selectedCountry">
+    <div class="container">
+      <mat-card class="example-card" style="width:500px">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Shiba Inu</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>
+            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+            bred for hunting.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+
 </div>
 
