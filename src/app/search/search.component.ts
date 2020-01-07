@@ -17,9 +17,9 @@ export class SearchComponent implements OnInit {
   countryList = [];
 
   // country list table
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name','area','alpha'];
   COUNTRY_DATA = [];
-  dataSource = new MatTableDataSource<any>(this.COUNTRY_DATA);
+  dataSource;
 
   constructor(private http: HttpClient) {  
     let params = new HttpParams().set('query',
@@ -84,10 +84,15 @@ export class SearchComponent implements OnInit {
           let countries = data['results']['bindings'];
           console.log(countries[0]);
           for( let i = 0; i< countries.length; i++ ){
-            this.countryList.push('name',countries[i]['name']['value'])
+            this.countryList.push({
+              'name':   countries[i]['name']['value'],
+              'alpha':  countries[i]['alpha']['value'],
+              'area':   countries[i]['l']['value']
+            })
           }
           console.log('cou',this.countryList);
           this.COUNTRY_DATA = this.countryList;
+          this.dataSource = new MatTableDataSource<any>(this.COUNTRY_DATA);
         })
   }
 }
