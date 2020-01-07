@@ -43,6 +43,18 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  searchtext = "";
+  search() {
+    switch(this.toggledClass) {
+      case 'Countries':
+        //alert(this.searchtext);
+        this.exploreCountry(this.searchtext);
+        break;
+      case 'Capital':
+        break;
+    }
+  }
+
   onToggleClicked(value, classT) {
     this.toggledClass = classT;
   }
@@ -54,10 +66,45 @@ export class SearchComponent implements OnInit {
         break;
       case 'Capital':
         break;
+      case 'Continent':
+        this.getAllContinents();
+        break;
+    }
+  }
+
+  isPopulation  = true;
+  isLandArea  = true;
+  isCurrency  = true;
+  isCapital  = true;
+
+  onToggleClickedFilter(event, value) {
+    switch(value) {
+      case 'isPopulation':
+        this.isPopulation = event;
+        break;
+      case 'isLandArea':
+        this.isLandArea = event;
+        break;
+      case 'isCurrency':
+        this.isCurrency = event;
+        break;
+      case 'isCapital':
+        this.isCapital = event;
+        break;
     }
   }
 
   exploreCountry(c) {
+
+    let searchFields = "?name ";
+
+    if(this.isPopulation) {
+      searchFields += "?population "
+    }
+    if(this.isLandArea) { searchFields += "?area "}
+    if(this.isCurrency) { searchFields += "?currency "}
+    if(this.isCapital) { searchFields += "?capital "}
+
     let query = `
         PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>
         PREFIX gn: <http://www.geonames.org/ontology#>
@@ -69,9 +116,9 @@ export class SearchComponent implements OnInit {
         PREFIX code: <http://www.telegraphis.net/ontology/measurement/code#>
         
         PREFIX money: <http://telegraphis.net/ontology/money/money#>
-        select ?name ?population ?area ?currency ?capital
+        select `+ searchFields + `
         where { 
-            ?country gn:name "Sri Lanka"@en;
+            ?country gn:name "` + c + `"@en;
                 gn:population ?population;
               geographis:landArea ?land;
                 geographis:capital ?ca;
@@ -93,11 +140,11 @@ export class SearchComponent implements OnInit {
           let country = d['results']['bindings'][0];
           console.log("dd",country);
           this.selectedCountry.push({
-            'area': country['area']['value'],
-            'capital' : country['area']['value'],
+            'area': country['area'] ? country['area']['value'] : null,
+            'capital' : country['capital'] ? country['capital']['value'] : null,
             'name': country['name']['value'],
-            'currency' : country['currency']['value'],
-            'population': country['population']['value']
+            'currency' : country['currency'] ? country['currency']['value'] : null,
+            'population': country['population']? country['population']['value']: null
           });
           console.log("s",this.selectedCountry);
         });
@@ -148,5 +195,47 @@ export class SearchComponent implements OnInit {
           this.COUNTRY_DATA = this.countryList;
           this.dataSource = new MatTableDataSource<any>(this.COUNTRY_DATA);
         })
+  }
+
+  continentList = [];
+
+    // country list table
+    displayed_contiColumns: string[] = ['name','population','buttons'];
+    CONTI_DATA = [];
+    contiSource;
+
+  getAllContinents() {
+    let query = `
+        PREFIX gn: <http://www.geonames.org/ontology#>
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        prefix onto:<http://www.ontotext.com/> PREFIX geographis: <http://telegraphis.net/ontology/geography/geography#>
+        select ?name ?population from onto:disable-sameAs { 
+            ?s a <http://www.telegraphis.net/ontology/geography/geography#Continent>; 
+              gn:name ?name;
+              gn:population ?population;
+        }
+    
+    `;
+
+    let params = new HttpParams().set('query',query);
+
+    this.http.get(this.url,{params})
+        .subscribe(d => {
+          let l = d['results']['bindings'];
+
+          for(let y = 0; y< l.length; y++ ){
+            this.continentList.push({
+              'name': l[y]['name']['value'],
+              'population' : l[y]['population']['value']
+            });
+
+          this.CONTI_DATA = this.continentList;
+          this.contiSource = new MatTableDataSource<any>(this.CONTI_DATA)
+          }
+
+          console.log("contdd",this.continentList);
+        })
+
+
   }
 }
