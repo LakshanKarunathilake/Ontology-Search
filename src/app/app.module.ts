@@ -14,6 +14,7 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { ResultsComponent } from './components/results/results.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ResultsComponent } from './components/results/results.component';
     MatSidenavModule,
     MatSlideToggleModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

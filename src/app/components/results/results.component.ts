@@ -8,7 +8,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 })
 export class ResultsComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -29,11 +29,7 @@ export class ResultsComponent implements OnInit {
       params: [query,format]
     };
 
-    this.http.get('http://dbpedia.org/sparql', headers, options) // 1
-      .subscribe(data => {
-          console.log(data);
-          this.sparkqlData = data; // 3
-       });
+
      console.log(this.sparkqlData);  // 2
   }
 
