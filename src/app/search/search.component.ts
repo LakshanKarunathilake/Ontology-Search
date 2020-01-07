@@ -7,6 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  url: string = 'http://localhost:7200/repositories/countrydb?';
 
   countryList = [];
 
@@ -21,7 +22,7 @@ export class SearchComponent implements OnInit {
           country:AD geographis:currency ?o 
       } limit 100`
     )
-    this.http.get('http://localhost:7200/repositories/countrydb?',{params})
+    this.http.get(this.url,{params})
               .subscribe(data=> {
                 console.log("d",data);
               })
@@ -57,14 +58,14 @@ export class SearchComponent implements OnInit {
 
     let params = new HttpParams().set('query',query);
 
-    this.http.get('http://localhost:7200/repositories/countrydb?',{params})
+    this.http.get(this.url,{params})
         .subscribe(data=>{
           let countries = data['results']['bindings'];
-
+          console.log(countries[0]);
           for( let i = 0; i< countries.length; i++ ){
             this.countryList.push(countries[i]['name']['value'])
-            console.log('cou',this.countryList);
           }
+          console.log('cou',this.countryList);
         })
   }
 }
