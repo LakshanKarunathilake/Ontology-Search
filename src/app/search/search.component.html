@@ -72,7 +72,7 @@
 
   <div class="col-md-9">
     <div class="row">
-      <img src="../../assets/images/banner.jpg" alt="">
+      <img *ngIf="countryList.length == 0 && selectedCountry.length == 0 && continentList.length == 0  && currencyList.length == 0 && selectedCurrency.length == 0" src="../../assets/images/banner.jpg" alt="">
 
 
   <div class="col-md-9" *ngIf="countryList.length != 0 && selectedCountry.length == 0">
