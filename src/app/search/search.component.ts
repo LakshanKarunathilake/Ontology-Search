@@ -52,6 +52,8 @@ export class SearchComponent implements OnInit {
         break;
       case 'Capital':
         break;
+      case 'Currency':
+        break;
     }
   }
 
@@ -68,6 +70,9 @@ export class SearchComponent implements OnInit {
         break;
       case 'Continent':
         this.getAllContinents();
+        break;
+      case 'Currency':
+        this.getAllCurrencies();
         break;
     }
   }
@@ -237,5 +242,63 @@ export class SearchComponent implements OnInit {
         })
 
 
+  }
+
+
+  currencyList = [];
+  displayed_currColumns: string[] = ['name','symbol','alpha','buttons'];
+  CURR_DATA = [];
+  currSource;
+
+  getAllCurrencies() {
+    let query = `
+      PREFIX money: <http://telegraphis.net/ontology/money/money#>
+      prefix onto:<http://www.ontotext.com/> 
+      select ?name ?symbol ?minor ?alpha ?isoNumeric from onto:disable-sameAs 
+      { 
+          ?s a <http://telegraphis.net/ontology/money/money#Currency>;
+            money:isoAlpha ?alpha;
+            money:isoNumeric ?isoNumeric;
+            money:minorName ?minor;
+            money:name ?name;
+            money:symbol ?symbol .
+          
+      }
+    
+    `;
+    
+    let params = new HttpParams().set('query',query);
+
+    this.http.get(this.url,{params})
+        .subscribe(data=> {
+          let l = data['results']['bindings'];
+
+          for(let y = 0; y< l.length; y++ ) {
+            this.currencyList.push({
+              'name' : l[y]['name']['value'],
+              'symbol' : l[y]['symbol']['value'],
+              'isoNumeric' : l[y]['isoNumeric']['value'],
+              'alpha' : l[y]['alpha']['value'],
+              'minor' : l[y]['minor']['value']
+            })
+          }
+
+          this.CURR_DATA = this.currencyList;
+          this.currSource = new MatTableDataSource<any>(this.CURR_DATA);
+          
+          console.log("cur",this.currencyList);
+        })
+  }
+
+  selectedCurrency = [];
+
+  exploreCurrency(curr) {
+    this.selectedCurrency.push({
+      'name' : 'Euro',
+      'symbol' : '€',
+      'isoNumeric' : '987',
+      'alpha' : 'EUR',
+      'minor' : 'cents'
+    })
   }
 }

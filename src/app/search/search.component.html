@@ -149,34 +149,113 @@
 
   </div>
 
-  <div class="col-md-9" *ngIf="selectedCountry.length != 0">
-    <div class="container">
-      <mat-card class="example-card" style="width:500px">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image">
-          </div>
-          <mat-card-title>{{selectedCountry[0].name}}</mat-card-title>
-          <mat-card-subtitle>Country</mat-card-subtitle>
-        </mat-card-header>
+  <div class="col-md-9" *ngIf="countryList.length == 0 && selectedCountry.length == 0 && continentList.length == 0  && currencyList.length != 0 && selectedCurrency.length == 0">
+
+    <div id="contiList">
+      <!-- <li *ngFor="let country of countryList">{{country}}</li> -->
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="currSource">
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="alpha">
+            <th mat-header-cell *matHeaderCellDef> Alpha </th>
+            <td mat-cell *matCellDef="let element"> {{element.alpha}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="buttons">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element"> 
+              <button mat-raised-button color="primary" (click)="exploreCurrency(element.name)">Explore</button>  
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayed_currColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayed_currColumns;"></tr>
+        </table>
+      
         
-        <mat-card-content>
-          <mat-list role="list">
-
-            <mat-list-item role="listitem" *ngIf="selectedCountry[0].capital">Capital - {{selectedCountry[0].capital}}</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="selectedCountry[0].population">Population - {{selectedCountry[0].population}}</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="selectedCountry[0].currency">Currency - {{selectedCountry[0].currency}}</mat-list-item>
-            <mat-list-item role="listitem" *ngIf="selectedCountry[0].area">Land Area - {{selectedCountry[0].area}} KM</mat-list-item>
-
-          </mat-list>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="warn" (click) = "unselectCountry()">Back</button>
-          
-        </mat-card-actions>
-      </mat-card>
+      </div>
     </div>
 
   </div>
+  <div class="col-md-9">
+    <div class="row">
+
+ 
+      <div class="col-md-12" *ngIf="selectedCountry.length != 0">
+        <div class="container">
+          <mat-card class="example-card" style="width:500px">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image">
+              </div>
+              <mat-card-title>{{selectedCountry[0].name}}</mat-card-title>
+              <mat-card-subtitle>Country</mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content>
+              <mat-list role="list">
+    
+                <mat-list-item role="listitem" *ngIf="selectedCountry[0].capital">Capital - {{selectedCountry[0].capital}}</mat-list-item>
+                <mat-list-item role="listitem" *ngIf="selectedCountry[0].population">Population - {{selectedCountry[0].population}}</mat-list-item>
+                <mat-list-item role="listitem" *ngIf="selectedCountry[0].currency">Currency - {{selectedCountry[0].currency}} 
+                    <button mat-raised-button (click) = "exploreCurrency(selectedCountry[0].name)">Explore more...</button></mat-list-item>
+                <mat-list-item role="listitem" *ngIf="selectedCountry[0].area">Land Area - {{selectedCountry[0].area}} KM</mat-list-item>
+    
+              </mat-list>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="warn" (click) = "unselectCountry()">Back</button>
+              
+            </mat-card-actions>
+          </mat-card>
+        </div>
+    
+      </div>
+    
+      <div class="col-md-12" *ngIf="selectedCurrency.length != 0">
+        <div class="container">
+          <mat-card class="example-card" style="width:500px">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image-money">
+              </div>
+              <mat-card-title>{{selectedCurrency[0].symbol}}</mat-card-title>
+              <mat-card-subtitle>{{selectedCurrency[0].name}}</mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content>
+              <mat-list role="list">
+    
+                <mat-list-item role="listitem" *ngIf="selectedCurrency[0].alpha">Alpha - {{selectedCurrency[0].alpha}}</mat-list-item>
+                <mat-list-item role="listitem" *ngIf="selectedCurrency[0].isoNumeric">ISO - {{selectedCurrency[0].isoNumeric}}</mat-list-item>
+                <mat-list-item role="listitem" *ngIf="selectedCurrency[0].minor">Minor - {{selectedCurrency[0].minor}}</mat-list-item>
+    
+              </mat-list>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="warn" (click) = "selectedCurrency = []">Back</button>
+              
+            </mat-card-actions>
+          </mat-card>
+        </div>
+    
+      </div>
+    
+    </div>
+  </div>
+
 
 </div>
 
