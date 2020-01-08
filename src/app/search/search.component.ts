@@ -58,6 +58,10 @@ export class SearchComponent implements OnInit {
   }
 
   onToggleClicked(value, classT) {
+    this.countryList = [];
+    this.currencyList = [];
+    this.continentList = [];
+    
     this.toggledClass = classT;
   }
 
