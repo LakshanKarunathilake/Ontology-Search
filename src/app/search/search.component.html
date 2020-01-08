@@ -211,7 +211,7 @@
                 <mat-list-item role="listitem" *ngIf="selectedCountry[0].capital">Capital - {{selectedCountry[0].capital}}</mat-list-item>
                 <mat-list-item role="listitem" *ngIf="selectedCountry[0].population">Population - {{selectedCountry[0].population}}</mat-list-item>
                 <mat-list-item role="listitem" *ngIf="selectedCountry[0].currency">Currency - {{selectedCountry[0].currency}} 
-                    <button mat-raised-button (click) = "exploreCurrency(selectedCountry[0].name)">Explore more...</button></mat-list-item>
+                    <button mat-raised-button (click) = "exploreCurrency(selectedCountry[0].currency)">Explore more...</button></mat-list-item>
                 <mat-list-item role="listitem" *ngIf="selectedCountry[0].area">Land Area - {{selectedCountry[0].area}} KM</mat-list-item>
     
               </mat-list>

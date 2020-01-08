@@ -293,12 +293,38 @@ export class SearchComponent implements OnInit {
   selectedCurrency = [];
 
   exploreCurrency(curr) {
-    this.selectedCurrency.push({
-      'name' : 'Euro',
-      'symbol' : '€',
-      'isoNumeric' : '987',
-      'alpha' : 'EUR',
-      'minor' : 'cents'
-    })
+    //alert(curr);
+    let query = `
+        PREFIX money: <http://telegraphis.net/ontology/money/money#>
+        prefix onto:<http://www.ontotext.com/> 
+        select ?symbol ?minor ?alpha ?isoNumeric from onto:disable-sameAs 
+        { 
+            ?s a <http://telegraphis.net/ontology/money/money#Currency>;
+              money:isoAlpha ?alpha;
+              money:isoNumeric ?isoNumeric;
+              money:minorName ?minor;
+              money:name "`+ curr +`"@en;
+              money:symbol ?symbol .
+            
+        }    
+    `;
+
+    let params = new HttpParams().set('query',query);
+
+    this.http.get(this.url,{params})
+        .subscribe(data=> {
+          let l = data['results']['bindings'];
+
+          console.log("cntry",l);
+
+          this.selectedCurrency.push({
+            'name' : curr,
+            'symbol' : l[0]['symbol']['value'],
+            'isoNumeric' : l[0]['isoNumeric']['value'],
+            'alpha' : l[0]['alpha']['value'],
+            'minor' : l[0]['minor']['value']
+          })    
+        })
+
   }
 }
